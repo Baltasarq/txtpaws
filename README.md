@@ -5,8 +5,7 @@ Preprocesador, capaz de convertir variables y constantes a un archivo SCE PAWS.
 <p>
 <a hreg="http://www.caad.es/baltasarq/prys/txtpaws/">Web</a>
 <p>
-NOTA Importante: la documentación actualizada se encuentra en el archivo
-txtpaws.html
+NOTA Importante: la documentación más detallada se encuentra en la [wiki](Documentación-para-txtPAWS).
 
 Web: <a href="http://caad.es/baltasarq/">http://caad.es/baltasarq/</a>
 
