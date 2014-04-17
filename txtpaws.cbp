@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="txtpaws" />
+		<Option pch_mode="2" />
+		<Option default_target="Release" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/txtpaws" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="-MOTR" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/txtpaws" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="-I..\prys\naufrago ..\prys\naufrago\naufrago.txp" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../../MyLib/" />
+		</Compiler>
+		<Linker>
+			<Add option="--static" />
+		</Linker>
+		<Unit filename="myLib/fileio.h" />
+		<Unit filename="myLib/persistente.cpp" />
+		<Unit filename="myLib/persistente.h" />
+		<Unit filename="myLib/stringman.cpp" />
+		<Unit filename="myLib/stringman.h" />
+		<Unit filename="src/excep.h" />
+		<Unit filename="src/msg.cpp" />
+		<Unit filename="src/msg.h" />
+		<Unit filename="src/txtpaws.cpp" />
+		<Unit filename="src/txtpaws.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
