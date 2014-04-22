@@ -104,11 +104,11 @@ public:
         virtual bool esUltimaEntrada()                                   = 0;
         virtual const std::string &getEtqEntradaAct() const              = 0;
         virtual std::string getValorEntradaActString() const             = 0;
-        virtual size_t getNumLineaEntradaAct() const               = 0;
+        virtual size_t getNumLineaEntradaAct() const                     = 0;
         virtual void dump(OutputFile &)                                  = 0;
         virtual void devIds(ListaIds &l) const                           = 0;
         virtual const std::string &getAvisos() const                     = 0;
-        virtual size_t getNumLinea(const std::string &etq)         = 0;
+        virtual size_t getNumLinea(const std::string &etq)               = 0;
 
 };
 
@@ -121,7 +121,7 @@ class MapaNombreSust : public MapaSust {
 			size_t numLinea;
 
 			std::string toString() const
-                { return StringMan::toString( info ); }
+                { std::ostringstream cnvt; cnvt << info; return cnvt.str(); }
 		};
 
    		typedef std::map<std::string, Info> mapNS;

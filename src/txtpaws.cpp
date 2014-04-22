@@ -575,7 +575,7 @@ bool ParseDefs::cambiaEstado(const std::string &lin)
 			;
 		}
 
-    		sscanf(lin.c_str() + 1, "%d", &numItem);
+    		sscanf(lin.c_str() + 1, "%ld", &numItem);
                 ponLogStr("Comprobando Item:");
                 ponLogInt(numItem);
         }
@@ -2962,7 +2962,7 @@ std::string procesaOpciones(int argc, char *argv[], size_t &numLocs,
 			{
 				// Checreto, checreto
 				porPantalla( "\ntxtPAWS Primavera de 2014"
-					"\nViva JSPAWS!\n\n"
+					"\nViva ngPAWS!\n\n"
 				);
 			}
 			else

@@ -1,13 +1,13 @@
 // Implementación de la plantilla "mapaNombreSust"
 
 template <typename T>
-MapaNombreSust<T>::MapaNombreSust(const std::string &n, unsigned int lim) : MapaSust(lim)
+MapaNombreSust<T>::MapaNombreSust(const std::string &n, size_t lim) : MapaSust(lim)
 {
         id = n;
 }
 
 template <typename T>
-void MapaNombreSust<T>::insrtEntrada(const T &num, const std::string &etq, unsigned int nl)
+void MapaNombreSust<T>::insrtEntrada(const T &num, const std::string &etq, size_t nl)
 {
 	Info aux;
 
@@ -22,7 +22,7 @@ void MapaNombreSust<T>::insrtEntrada(const T &num, const std::string &etq, unsig
 }
 
 template <>
-void MapaNombreSust<std::string>::insrtEntrada(const std::string &num, const std::string &etq, unsigned int nl)
+void MapaNombreSust<std::string>::insrtEntrada(const std::string &num, const std::string &etq, size_t nl)
 {
 	Info aux;
 
@@ -41,7 +41,7 @@ T  MapaNombreSust<T>::buscaEntrada(const std::string &etq)
 }
 
 template <typename T>
-unsigned int  MapaNombreSust<T>::getNumLinea(const std::string &etq)
+size_t  MapaNombreSust<T>::getNumLinea(const std::string &etq)
 {
     unsigned int toret = std::numeric_limits<unsigned int>::max();
   	itact = mapa.find( etq );
@@ -155,7 +155,7 @@ std::string MapaNombreSust<T>::getValorEntradaActString() const
 }
 
 template <typename T>
-unsigned int MapaNombreSust<T>::getNumLineaEntradaAct() const
+size_t MapaNombreSust<T>::getNumLineaEntradaAct() const
 {
     return ( itact->second.numLinea );
 }
