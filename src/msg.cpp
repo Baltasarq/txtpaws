@@ -92,7 +92,7 @@ const std::string TxtPAWS::strMsgSp[] = {
 	"\t\tficheros de recursos (imgs., sonidos ...)\n"
 	"\t\t(si los caminos contienen espacios, debe "
 	"encerrarse la totalidad entre comillas,\n"
-	"\t\tpor ejemplo, \"--I<ruta1>,<ruta2>\")"
+	"\t\tpor ejemplo, \"-I<ruta1>,<ruta2>\")"
 	"\t(')"
 	"\n\tO/o permite proporcionar un nombre de fichero\n"
 	"\t\tde salida alternativo al nombre por defecto,\n"
