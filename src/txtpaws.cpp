@@ -31,7 +31,7 @@ const std::string MARCASND    = "SND";
 const std::string MARCAMSC    = "MSC";
 const std::string MARCAGRF    = "GRF";
 const std::string nombre      = "txtPAWS";
-const std::string version     = " v1.27 20140417";
+const std::string version     = " v1.28 20140526";
 const std::string opInform    = "INFORM";
 const std::string opNumLoc    = "MAXNUMLOCS=";
 const std::string opDebug     = "DEBUG";
@@ -310,7 +310,7 @@ void Parser::escribeSalida(const std::string &x)
 void Parser::escribirLineasEnBlanco(size_t num)
 {
     for(; num > 0; --num) {
-        escribeSalida( "" );
+        escribeSalida( coment );
     }
 }
 
