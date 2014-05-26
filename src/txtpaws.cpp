@@ -575,7 +575,7 @@ bool ParseDefs::cambiaEstado(const std::string &lin)
 			;
 		}
 
-    		sscanf(lin.c_str() + 1, "%ld", &numItem);
+    		sscanf(lin.c_str() + 1, "%u", &numItem);
                 ponLogStr("Comprobando Item:");
                 ponLogInt(numItem);
         }
