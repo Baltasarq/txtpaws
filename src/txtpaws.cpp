@@ -74,11 +74,11 @@ const std::string COMENT_PAWS   = ";";
 const std::string EXTSAL_INFORM = ".inf";
 const std::string EXTSAL_PAWS   = ".sce";
 
-// Pueden cambiar según el "estilo" utilizado
+// Pueden cambiar por el "estilo" utilizado
 std::string coment               = COMENT_PAWS;	 // El comentario a emplear por defecto
-std::string extsal               = EXTSAL_PAWS;  // La extensión a emplear por defecto
+std::string extsal               = EXTSAL_PAWS;  // La ext. a emplear por defecto
 bool   modoQuiet                 = false;        // No muestra salida por pantalla
-bool   modoVerbose               = false;	 // No muestra mogollón de info
+bool   modoVerbose               = false;	     // No muestra tope de info
 
 const size_t MAXNUM = std::numeric_limits<size_t>::max();
 const size_t MAXANIDAMIENTOSUSTITUCIONES = 50;
@@ -208,7 +208,7 @@ const std::string &Scanner::leeLinea() {
       // encontrar el primer char que no es un espacio
       pasaEsp( buf, primerCaracter );
 
-      // lin. en blanco ?
+      // ln. en blanco ?
       if ( primerCaracter      >  (buf.length() - 1)
         || buf[primerCaracter] == '\n'
         || buf[primerCaracter] == '\r'
@@ -218,11 +218,11 @@ const std::string &Scanner::leeLinea() {
             ++blank;
       }
       else {
-          // eliminar lins. que empiezan por comentario
+          // eliminar lns. que empiezan por comentario
           if (buf.compare(primerCaracter, coment.length(), coment) == 0)
           {
                 buf  = "";
-                ++blank;     // Con esto no se modifican los nums. de lin.
+                ++blank;     // Con esto no se modifican los nums. de ln.
                              // del fichero de salida, excepto
                              // de los includes (ficheros incluidos)
           }
@@ -259,20 +259,20 @@ Parser::Parser(Scanner *sc, bool cl)
 		: scanSCE(sc), fout(NULL), log(NULL), modoLimpio(cl)
 {
 
-        // El nombre del log se crea concatenando la ext de log
-        // el fichero "fich.txp" es fich.txp.log
+    // El nombre del log se crea concatenando la ext de log
+    // el fichero "fich.txp" es fich.txp.log
 
-        nomFich = scanSCE->devNombreEntrada() + extlog;
+    nomFich = scanSCE->devNombreEntrada() + extlog;
 
 	if  ( !enModoLimpio() ) {
-        	log     = new OutputFile( nomFich );
+        log = new OutputFile( nomFich );
 
 		// Podemos permitirnos que el log falle
 		ponLogStr(nombre + version);
 		ponLogStr("entrada: " + scanSCE->devNombreEntrada());
 		ponLogStr("========================");
 	}
-};
+}
 
 Parser::~Parser() {
     ponLogStr( "Fin de Parser..." );
@@ -1772,7 +1772,7 @@ void ParseIncludes::hazInclude(const std::string &linact)
     if (    entFich == NULL
 	 ||  !( entFich->preparado() ) )
 	{
-                throw ErrorFichEntrada(
+        throw ErrorFichEntrada(
 			strMsg[INVALIDFILE] + fichincl + '\''
 		);
 	}

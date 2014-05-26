@@ -1,9 +1,9 @@
 // txtpaws.h
 /*
   	Cabecera
-  	Este programa toma un código fuente en algo parecido al SCE,
+  	Este programa toma un fuente en algo parecido al SCE,
   	pero admitiendo comentarios y nombres para las variables,
-  	y genera código SCE PAWS puro
+  	y genera SCE PAWS puro
 */
 
 #include <cstdio>
