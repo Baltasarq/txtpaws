@@ -310,7 +310,7 @@ void Parser::escribeSalida(const std::string &x)
 void Parser::escribirLineasEnBlanco(size_t num)
 {
     for(; num > 0; --num) {
-        escribeSalida( coment );
+        escribeSalida( "" );
     }
 }
 
@@ -566,19 +566,19 @@ bool ParseDefs::cambiaEstado(const std::string &lin)
 
     // Controlar los estados del AF
   	if (lin[0] == '/'
-         && isdigit(lin[1]))
-        {
-                if (devEstado() == DEF
-                 || devEstado() == PRO)
-		{
-                        throw SeccError( strMsg[CANTHAVESTATES] )
-			;
-		}
+     && isdigit(lin[1]))
+    {
+            if (devEstado() == DEF
+             || devEstado() == PRO)
+    {
+                    throw SeccError( strMsg[CANTHAVESTATES] )
+        ;
+    }
 
-    		sscanf(lin.c_str() + 1, "%u", &numItem);
-                ponLogStr("Comprobando Item:");
-                ponLogInt(numItem);
-        }
+        sscanf(lin.c_str() + 1, "%lu", &numItem);
+            ponLogStr("Comprobando Item:");
+            ponLogInt(numItem);
+    }
   	else
   	if (lin.compare(0, 4, "/CTL") == 0) {
                 if (devEstado() != DEF) {
