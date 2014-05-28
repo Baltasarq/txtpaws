@@ -309,11 +309,11 @@ void Parser::escribeSalida(const std::string &x)
 
 void Parser::escribirLineasEnBlanco(size_t num)
 {
-    /*
     for(; num > 0; --num) {
         escribeSalida( "" );
     }
-    */
+
+    return;
 }
 
 // ------------------------------------------------------------------- parseDefs
@@ -1779,17 +1779,9 @@ void ParseIncludes::hazInclude(const std::string &linact)
 		);
 	}
     else {
-            // Marcar en la salida la presencia del include
-            aux =  coment;
-            aux += ' ';
-            aux += linact;
-            aux += linSeparadora;
-            escribeSalida(aux);
-
             // "Copiar" el fichero
             aux = entFich->leeLinea();
-            while(aux != "")
-            {
+            while(aux != "") {
                     // Pasar las lins. en blanco tal y como aparecen
                     escribirLineasEnBlanco( entFich->devBlank() );
 
@@ -1799,11 +1791,11 @@ void ParseIncludes::hazInclude(const std::string &linact)
                     aux = entFich->leeLinea();
             }
 
-            // Meter una lin. de comentario diferenciadora
-            aux = coment;
-            aux += linSeparadora;
-            escribeSalida( aux );
+            escribirLineasEnBlanco( std::max( 0, entFich->devBlank() - 1 ) );
+            delete entFich;
     }
+
+    return;
 }
 
 void ParseIncludes::procEntrada() throw(Error) {
@@ -1829,20 +1821,18 @@ void ParseIncludes::procEntrada() throw(Error) {
               // Hay un ##include?
               if (cambiaEstado(linact))
               {
-                // procesar el include
                 hazInclude(linact);
-
-                // Meter la lin. como un comentario en la salida
-                linact = coment + linact;
+              } else {
+                escribeSalida(linact);
               }
-
-              // Escribir la lin., ya procesada
-              escribeSalida(linact);
 
               // Tomar otra lin.
               muestraProceso(scanSCE, this);
               linact = scanSCE->leeLinea();
         }
+
+        escribirLineasEnBlanco( std::max( 0, scanSCE->devBlank() - 1 ) );
+        return;
 }
 
 // =================================================================== MapaSust
