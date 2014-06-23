@@ -31,7 +31,7 @@ const std::string MARCASND    = "SND";
 const std::string MARCAMSC    = "MSC";
 const std::string MARCAGRF    = "GRF";
 const std::string nombre      = "txtPAWS";
-const std::string version     = " v1.28 20140528";
+const std::string version     = " v1.29 20140614";
 const std::string opInform    = "INFORM";
 const std::string opNumLoc    = "MAXNUMLOCS=";
 const std::string opDebug     = "DEBUG";
@@ -572,12 +572,11 @@ bool ParseDefs::cambiaEstado(const std::string &lin)
     {
             if (devEstado() == DEF
              || devEstado() == PRO)
-    {
-                    throw SeccError( strMsg[CANTHAVESTATES] )
-        ;
-    }
+            {
+                throw SeccError( strMsg[CANTHAVESTATES] );
+            }
 
-        sscanf(lin.c_str() + 1, "%lu", &numItem);
+            sscanf(lin.c_str() + 1, "%u", &numItem);
             ponLogStr("Comprobando Item:");
             ponLogInt(numItem);
     }
@@ -1694,6 +1693,7 @@ bool ParseDefs::esContinuacionMacro(std::string &lin)
 // =============================================================== parseIncludes
 ParseIncludes::ParseIncludes(Scanner *sc) : Parser(sc)
 {
+    numLinGlobal = numLinInclude = 0;
     nomFich = Scanner::getNomFich( scanSCE->devNombreEntrada() ) + extmed;
   	fout    = new OutputFile( nomFich );
 
@@ -1743,6 +1743,8 @@ void ParseIncludes::hazInclude(const std::string &linact)
     std::string fichincl;
     Scanner *entFich;
 
+    numLinInclude = 0;
+
 	if ( modoVerbose ) {
 		debOut( "parser: antes de hacer include ..." );
 	}
@@ -1779,20 +1781,24 @@ void ParseIncludes::hazInclude(const std::string &linact)
 		);
 	}
     else {
-            // "Copiar" el fichero
-            aux = entFich->leeLinea();
-            while(aux != "") {
-                    // Pasar las lins. en blanco tal y como aparecen
-                    escribirLineasEnBlanco( entFich->devBlank() );
+        // "Copiar" el fichero
+        aux = entFich->leeLinea();
+        while(aux != "") {
+                int lineasEnBlanco = entFich->devBlank();
 
-                    // Escribir lin. actual
-                    escribeSalida( aux );
+                // Pasar las lins. en blanco tal y como aparecen
+                escribirLineasEnBlanco( lineasEnBlanco );
 
-                    aux = entFich->leeLinea();
-            }
+                // Escribir lin. actual
+                escribeSalida( aux );
 
-            escribirLineasEnBlanco( std::max( 0, entFich->devBlank() - 1 ) );
-            delete entFich;
+                numLinInclude += lineasEnBlanco + 1;
+                numLinGlobal += lineasEnBlanco + 1;
+                aux = entFich->leeLinea();
+        }
+
+        escribirLineasEnBlanco( entFich->devBlank() - 1 );
+        delete entFich;
     }
 
     return;
@@ -1801,8 +1807,8 @@ void ParseIncludes::hazInclude(const std::string &linact)
 void ParseIncludes::procEntrada() throw(Error) {
   	std::string linact;
 
-        // Comprobar que el fichero es correcto
-        if ((scanSCE == NULL)
+    // Comprobar que el fichero es correcto
+    if ((scanSCE == NULL)
 	||(!(scanSCE->preparado())))
 	{
 		throw ErrorFichEntrada(
@@ -1810,29 +1816,30 @@ void ParseIncludes::procEntrada() throw(Error) {
 		);
 	}
 
-        // Tomar primera lin.
-        linact = scanSCE->leeLinea();
+    // Tomar primera lin.
+    linact = scanSCE->leeLinea();
 
-        // Procesar todas las lins.
-        while( linact != "" ) {
-              // Pasar las lins. en blanco tal y como aparecen
-              escribirLineasEnBlanco( scanSCE->devBlank() );
+    // Procesar todas las lins.
+    while( linact != "" ) {
+        ++numLinGlobal;
 
-              // Hay un ##include?
-              if (cambiaEstado(linact))
-              {
-                hazInclude(linact);
-              } else {
-                escribeSalida(linact);
-              }
+        // Pasar las lins. en blanco tal y como aparecen
+        escribirLineasEnBlanco( scanSCE->devBlank() );
 
-              // Tomar otra lin.
-              muestraProceso(scanSCE, this);
-              linact = scanSCE->leeLinea();
+        // Hay un ##include?
+        if ( cambiaEstado( linact ) ) {
+            hazInclude( linact );
+        } else {
+            escribeSalida( linact );
         }
 
-        escribirLineasEnBlanco( std::max( 0, scanSCE->devBlank() - 1 ) );
-        return;
+        // Tomar otra lin.
+        muestraProceso( scanSCE, this );
+        linact = scanSCE->leeLinea();
+    }
+
+    escribirLineasEnBlanco( scanSCE->devBlank() );
+    return;
 }
 
 // =================================================================== MapaSust

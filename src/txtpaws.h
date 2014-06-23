@@ -49,8 +49,8 @@ protected:
     std::string nombre;
 private:
     InputFile *f;
-    int linea;
-    int blank;
+    size_t linea;
+    size_t blank;
 
 public:
     const static std::string DELIMITADORES;
@@ -69,13 +69,13 @@ public:
         { return f->isEof(); }
     bool preparado(void)  const
         { return f->isOpen(); }
-    int devNumLinea(void) const
+    size_t devNumLinea(void) const
         { return linea; }
     const std::string &getLineaAct() const
         { return buf; }
     const std::string &devNombreEntrada(void) const
         { return nombre; }
-    int devBlank(void) const
+    size_t devBlank(void) const
         { return blank; }
 
     static bool isNumber(const std::string &str);
@@ -406,13 +406,16 @@ public:
 };
 
 class ParseIncludes : public Parser {
-        protected:
-                void hazInclude(const std::string &);
-        public:
-                ParseIncludes(Scanner *);
+public:
+        ParseIncludes(Scanner *);
 
-                bool cambiaEstado(const std::string &);
-                void procEntrada() throw(Error);
+        bool cambiaEstado(const std::string &);
+        void procEntrada() throw(Error);
+protected:
+        void hazInclude(const std::string &);
+private:
+        size_t numLinGlobal;
+        size_t numLinInclude;
 };
 
 class ParseDefs : public Parser {

@@ -15,6 +15,12 @@ void MapaNombreSust<T>::insrtEntrada(const T &num, const std::string &etq, size_
 		throw ErrorSemantico( "Límite superado en " + getID() );
 	}
 
+printf( "Adding: '%s'\n", etq.c_str() );
+
+	if ( mapa.find( etq ) != mapa.end() ) {
+        throw MsgYaExisteError( etq );
+	}
+
 	aux.numLinea = nl;
 	aux.info     = num;
 
@@ -25,11 +31,15 @@ template <>
 void MapaNombreSust<std::string>::insrtEntrada(const std::string &num, const std::string &etq, size_t nl)
 {
 	Info aux;
+printf( "Adding: '%s' = '%s'\n", etq.c_str(), num.c_str() );
+	if ( mapa.find( etq ) != mapa.end() ) {
+        throw MsgYaExisteError( etq );
+	}
 
 	aux.numLinea = nl;
 	aux.info     = num;
 
-  	mapa[etq]    = aux;
+  	mapa[ etq ]    = aux;
 }
 
 template <typename T>
