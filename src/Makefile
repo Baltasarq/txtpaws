@@ -1,17 +1,19 @@
+CFLAGS = -m32 -O2
+
 txtpaws: txtpaws.o msg.o persistente.o stringman.o
-	$(CPP) -m32 txtpaws.o msg.o persistente.o stringman.o -otxtpaws
+	$(CXX) $(CFLAGS) txtpaws.o msg.o persistente.o stringman.o -otxtpaws
 
 txtpaws.o: txtpaws.cpp txtpaws.h
-	$(CPP) -m32 -c txtpaws.cpp -otxtpaws.o
+	$(CXX) $(CFLAGS) -c txtpaws.cpp -otxtpaws.o
 
 msg.o: msg.cpp msg.h
-	$(CPP) -m32 -c msg.cpp -omsg.o
+	$(CXX) $(CFLAGS) -c msg.cpp -omsg.o
 
 persistente.o: persistente.cpp persistente.h
-	$(CPP) -m32 -c persistente.cpp -opersistente.o
+	$(CXX) $(CFLAGS) -c persistente.cpp -opersistente.o
 
 stringman.o: stringman.cpp stringman.h
-	$(CPP) -m32 -c stringman.cpp -ostringman.o
+	$(CXX) $(CFLAGS) -c stringman.cpp -ostringman.o
 
 clean:
 	$(RM) *.o
