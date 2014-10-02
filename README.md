@@ -3,9 +3,9 @@ txtpaws
 
 Preprocesador, capaz de convertir variables y constantes a un archivo SCE PAWS.
 <p>
-<a hreg="http://www.caad.es/baltasarq/prys/txtpaws/">Web</a>
+<a target="_blank" href="http://www.caad.es/baltasarq/prys/txtpaws/">Web</a>
 <p>
-NOTA Importante: la documentación detallada se encuentra en la wiki.
+NOTA Importante: la documentación detallada se encuentra en la <a href="https://github.com/Baltasarq/txtpaws/wiki/">wiki</a>.
 
 Se trata de poder utilizar nombres de objetos, localidades y mensajes para
 referirse a esos objetos en lugar de por sus números de definición en
@@ -31,13 +31,20 @@ El formato de SCE, pawcomp y pawint son copyright de Graham Yeandle.
 
 Un fichero SCE generado con txtPAWS o directamente escrito sin utilizar txtPAWS
 sirve de entrada para al menos tres compiladores importantes:
-        a) El de Graham Yeandle para MS-DOS, pawcomp. Genera un fichero .pdb que
+
+a) El de Graham Yeandle para MS-DOS, pawcomp. Genera un fichero .pdb que
 se puede ejecutar con pawint (esta opción no es muy recomendable).
-        b) El compilador pawseZ de Zak, que genera código inform a partir de un
+
+b) El compilador pawseZ de Zak, que genera código inform a partir de un
 archivo .sce. Esta opción es bastante recomendable, ya que inform puede generar
 tanto ficheros .z5 (máquina Z) como .ulx (máquina Glulx).
-        c) Paguaglús. Genera directamente código .ulx, es decir, código para la
-máquina Glulx. (esta opción no es muy recomendable, pues ya no se mantiene).
-        d) Superglús. Genera directamente código .ulx, es decir, código para la
-máquina Glulx (esta opción es muy recomendable) y JavaScript.
 
+c) Paguaglús. Genera directamente código .ulx, es decir, código para la
+máquina Glulx. (esta opción no es muy recomendable, pues ya no se mantiene).
+
+d) <a target="_blank" href="http://www.caad.es/superglus/">Superglús</a>. Genera directamente código .ulx, es decir, código para la
+máquina Glulx (esta opción es muy recomendable).
+
+e) <a target="_blank" href="https://github.com/Utodev/ngPAWS/wiki/">ngPAWS</a> Es una versión nueva de Superglús que genera aventuras en html. Esta opción es realmente muy recomendable.
+
+<b>¿Ya estás trabajando con Superglús o ngPAWS? ¡No te preocupes más! txtPAWS está incluido "de serie" en estos sistemas.</b>
