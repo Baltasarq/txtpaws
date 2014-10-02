@@ -3,7 +3,7 @@ txtpaws
 
 Preprocesador, capaz de convertir variables y constantes a un archivo SCE PAWS.
 <p>
-<a href="http://www.caad.es/baltasarq/prys/txtpaws/">Web</a>
+<a target="_blank" href="http://www.caad.es/baltasarq/prys/txtpaws/">Web</a>
 <p>
 NOTA Importante: la documentación detallada se encuentra en la <a href="https://github.com/Baltasarq/txtpaws/wiki/">wiki</a>.
 
@@ -42,5 +42,9 @@ tanto ficheros .z5 (máquina Z) como .ulx (máquina Glulx).
 c) Paguaglús. Genera directamente código .ulx, es decir, código para la
 máquina Glulx. (esta opción no es muy recomendable, pues ya no se mantiene).
 
-d) Superglús. Genera directamente código .ulx, es decir, código para la
+d) <a target="_blank" href="http://www.caad.es/superglus/">Superglús</a>. Genera directamente código .ulx, es decir, código para la
 máquina Glulx (esta opción es muy recomendable) y JavaScript.
+
+e) <a target="_blank" href="https://github.com/Utodev/ngPAWS/wiki/">ngPAWS</a> Es una versión nueva de Superglús que genera aventuras en html. Esta opción es realmente muy recomendable.
+
+<b>¿Ya estás trabajando con Superglús o ngPAWS? ¡No te preocupes más! txtPAWS está incluido "de serie" en estos sistemas.</b>
