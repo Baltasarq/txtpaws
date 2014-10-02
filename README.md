@@ -43,7 +43,7 @@ c) Paguaglús. Genera directamente código .ulx, es decir, código para la
 máquina Glulx. (esta opción no es muy recomendable, pues ya no se mantiene).
 
 d) <a target="_blank" href="http://www.caad.es/superglus/">Superglús</a>. Genera directamente código .ulx, es decir, código para la
-máquina Glulx (esta opción es muy recomendable) y JavaScript.
+máquina Glulx (esta opción es muy recomendable).
 
 e) <a target="_blank" href="https://github.com/Utodev/ngPAWS/wiki/">ngPAWS</a> Es una versión nueva de Superglús que genera aventuras en html. Esta opción es realmente muy recomendable.
 
