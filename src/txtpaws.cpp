@@ -56,7 +56,7 @@ const std::string seqDef      = "#DEFINE";
 const std::string seqRep      = "&&";
 const std::string seqInd      = "@";
 const std::string prefijoVOC  = "_voc_";
-const std::string caracteresExtrasIds = "._áéíóúÁÉÍÓÚñÑüÜÇç";
+const std::string caracteresExtrasIds = "._ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
 const std::string AttrMacro   = "ATTR";
 	// Por si acaso (ISO-8859-1): Punto, underscore, vocales acentuadas,
 	// enye, cedillla, mays y mins.
@@ -68,7 +68,7 @@ const char delimLiteral  = '"';
 const char delimContMacro= '+';
 const char delimRutas    = ',';
 
-// Constantes según estilo
+// Constantes segï¿½n estilo
 const std::string COMENT_INFORM = "!";
 const std::string COMENT_PAWS   = ";";
 const std::string EXTSAL_INFORM = ".inf";
@@ -322,7 +322,7 @@ const std::string ParseDefs::StrEstado[] = {
 	"LOC", "CON", "OBJ", "PRO"
 };
 
-std::auto_ptr<ParseDefs::ListaCondactos> ParseDefs::Condactos;
+std::unique_ptr<ParseDefs::ListaCondactos> ParseDefs::Condactos;
 
 void ParseDefs::preparaCondactos()
 /**
@@ -554,12 +554,16 @@ ParseDefs::TipoEstadoPreProc ParseDefs::getEstadoPreProc() const
 }
 
 inline
-void ParseDefs::quitaEstadoPreProc() {
-	if ( estadoPreProc.size() > 0 )
+void ParseDefs::quitaEstadoPreProc()
+{
+	if ( estadoPreProc.size() > 0 ) {
   		estadoPreProc.pop();
-	else  	throw ErrorPreProc(
-			strMsg[NESTING] + '(' + prepENDIF + ')' )
-		;
+    } else {
+        throw ErrorPreProc(
+			strMsg[NESTING] + '(' + prepENDIF + ')' );
+    }
+
+    return;
 }
 
 bool ParseDefs::cambiaEstado(const std::string &lin)
@@ -582,72 +586,72 @@ bool ParseDefs::cambiaEstado(const std::string &lin)
     }
   	else
   	if (lin.compare(0, 4, "/CTL") == 0) {
-                if (devEstado() != DEF) {
-                        throw SeccError( strMsg[CTLORD] );
-		}
+            if (devEstado() != DEF) {
+                throw SeccError( strMsg[CTLORD] );
+		    }
 
     		cambiaEstado(CTL);
     		ponLogStr("Secc. Control ...");
   	}
   	else
   	if (lin.compare(0, 4, "/VOC") == 0) {
-                if (devEstado() != CTL) {
-                        throw SeccError( strMsg[VOCORD] );
-		}
+            if (devEstado() != CTL) {
+                throw SeccError( strMsg[VOCORD] );
+		    }
 
     		cambiaEstado(VOC);
     		ponLogStr("Secc. Vocabulario ...");
   	}
   	else
   	if (lin.compare(0, 4, "/STX") == 0) {
-                if (devEstado() != VOC) {
-                        throw SeccError( strMsg[STXORD] );
-		}
+            if (devEstado() != VOC) {
+                throw SeccError( strMsg[STXORD] );
+		    }
 
     		cambiaEstado(SYSMSG);
     		ponLogStr("Secc. Mensajes de Sistema ...");
   	}
   	else
   	if (lin.compare(0, 4, "/MTX") == 0) {
-                if (devEstado() != SYSMSG) {
-                        throw SeccError( strMsg[MTXORD] );
-		}
+            if (devEstado() != SYSMSG) {
+                throw SeccError( strMsg[MTXORD] );
+		    }
 
     		cambiaEstado(MSG);
     		ponLogStr("Secc. Mensajes de usuario ...");
   	}
   	else
   	if (lin.compare(0, 4, "/OTX") == 0) {
-                if (devEstado() != MSG) {
-                        throw SeccError( strMsg[OTXORD] );
-		}
+            if (devEstado() != MSG) {
+                throw SeccError( strMsg[OTXORD] );
+		    }
 
     		cambiaEstado(OBJMSG);
     		ponLogStr("Secc. Mensajes de Objeto ...");
   	}
   	else
   	if (lin.compare(0, 4, "/LTX") == 0) {
-                if (devEstado() != OBJMSG) {
-                        throw SeccError( strMsg[LTXORD] );
-		}
+            if (devEstado() != OBJMSG) {
+                throw SeccError( strMsg[LTXORD] );
+		    }
 
     		cambiaEstado(LOC);
     		ponLogStr("Secc. Localidades ...");
   	}
   	else
   	if (lin.compare(0, 4, "/CON") == 0) {
-                if (devEstado() != LOC) {
-                        throw SeccError( strMsg[CONORD] );
-		}
+            if (devEstado() != LOC) {
+                throw SeccError( strMsg[CONORD] );
+		    }
 
     		cambiaEstado(CON);
     		ponLogStr("Secc. Conexiones ...");
   	}
   	else
   	if (lin.compare(0, 4, "/OBJ") == 0) {
-                if (devEstado() != CON) {
-                        throw SeccError( strMsg[OBJORD] );
-		}
+            if (devEstado() != CON) {
+                throw SeccError( strMsg[OBJORD] );
+		    }
 
     		cambiaEstado(OBJ);
     		ponLogStr("Secc. de Objetos ...");
@@ -656,9 +660,9 @@ bool ParseDefs::cambiaEstado(const std::string &lin)
         if (lin.compare(0, 4, "/PRO") == 0) {
         	if (devEstado() != PRO
                  && devEstado() != OBJ)
-		{
-                	throw SeccError( strMsg[PROORD] );
-		}
+		    {
+                throw SeccError( strMsg[PROORD] );
+		    }
 
     	  	ponLogStr("Tabla de procesos ...");
     	  	cambiaEstado(PRO);
@@ -1251,7 +1255,7 @@ void ParseDefs::procIdentificadoresControl(const std::string &lin, size_t &pos)
         size_t antPos;
         std::string delimitadores = Scanner::DELIMITADORES + '(';
 
-        // Realmente, ¿hay algo que procesar?
+        // Realmente, ï¿½hay algo que procesar?
         Scanner::pasaEsp( lin, pos );
         antPos = pos;
 
@@ -1358,7 +1362,7 @@ bool ParseDefs::compruebaId(const std::string &x)
     {
             for(; i < tam; ++i)
             {
-                    // Un id puede contener '_', letra o dígito
+                    // Un id puede contener '_', letra o dï¿½gito
                     if ( !isdigit( x[i] )
                       && !isalpha( x[i] )
                       && caracteresExtrasIds.find( x[i] ) == std::string::npos )
@@ -1374,9 +1378,9 @@ bool ParseDefs::compruebaId(const std::string &x)
 // -------------------------------------------------- ParseDefs::preprocesador()
 void ParseDefs::preprocesador(std::string &linea)
 /*
-	El preprocesador procesa las órdens #ifdef ... #else ... #endif,
+	El preprocesador procesa las ï¿½rdens #ifdef ... #else ... #endif,
 	actuando en consecuencia.
-	Se trata de una pequeña máquina de estados. Como los #if ...
+	Se trata de una pequeï¿½a mï¿½quina de estados. Como los #if ...
 	son anidables, es necesario guardar el estado actual en una pila
 */
 {
@@ -1512,7 +1516,7 @@ void ParseDefs::preprocesador(std::string &linea)
 }
 
 // ---------------------------------------------------- ParseDefs::procEntrada()
-void ParseDefs::procEntrada() throw(Error)
+void ParseDefs::procEntrada()
 {
   	std::string linact;
 	std::ostringstream infoDebug;
@@ -1533,7 +1537,7 @@ void ParseDefs::procEntrada() throw(Error)
     // Hacer sustituciones hasta final de fichero
     while ( !( linact.empty() ) ) {
 
-      // Pasar las líneas en blanco tal y como están
+      // Pasar las lï¿½neas en blanco tal y como estï¿½n
       escribirLineasEnBlanco( scanSCE->devBlank() );
       preprocesador( linact );
 
@@ -1584,7 +1588,7 @@ void ParseDefs::procEntrada() throw(Error)
                       // Eliminar lo procesado
                       linact.erase( 0, pos );
 
-                      // Si estamos en modo de debug, añadir el número de línea
+                      // Si estamos en modo de debug, aï¿½adir el nï¿½mero de lï¿½nea
                       if ( esModoDebug() ) {
                         linact += infoDebug.str();
                         infoDebugEscrita = true;
@@ -1607,7 +1611,7 @@ void ParseDefs::procEntrada() throw(Error)
         linact += infoDebug.str();
       }
 
-          // Escribir la línea ya procesada en la salida
+          // Escribir la lï¿½nea ya procesada en la salida
           escribeSalida(linact);
 
           // Tomar siguiente lin.
@@ -1626,7 +1630,7 @@ void ParseDefs::procEntrada() throw(Error)
         throw ErrorPreProc( strMsg[INVALIDNESTINGPREPROC] );
     }
 
-    // Volcados de información varios
+    // Volcados de informaciï¿½n varios
     if ( log != NULL ) {
             ts->dumpTxt( *log );
     }
@@ -1671,7 +1675,7 @@ bool ParseDefs::esContinuacionMacro(std::string &lin)
 							scanSCE->devNumLinea())
 				;
 
-				// Cambiar la línea = ';' + lin
+				// Cambiar la lï¿½nea = ';' + lin
 				lin = coment + lin;
 
 				// Para que conste
@@ -1804,7 +1808,8 @@ void ParseIncludes::hazInclude(const std::string &linact)
     return;
 }
 
-void ParseIncludes::procEntrada() throw(Error) {
+void ParseIncludes::procEntrada()
+{
   	std::string linact;
 
     // Comprobar que el fichero es correcto
@@ -1914,12 +1919,12 @@ TDS::TDS(size_t numLocs, bool v) {
         new TablaSusts( MARCAMSG, v )));
 
 
-    // Gráficos (/localidad)
+    // Grï¿½ficos (/localidad)
     tablas.insert(ListaTablas::value_type(MARCAPIC,
         new TablaSusts( MARCAPIC, v, numLocs )));
 
 
-    // Música (/localidad)
+    // Mï¿½sica (/localidad)
     tablas.insert(ListaTablas::value_type(MARCAMSC,
         new TablaSusts( MARCAMSC, v, numLocs )));
 
@@ -1929,7 +1934,7 @@ TDS::TDS(size_t numLocs, bool v) {
         new TablaSustsDesplz( MARCASND, numLocs, v )));
 
 
-    // Efectos gráficos
+    // Efectos grï¿½ficos
     tablas.insert(ListaTablas::value_type(MARCAGRF,
         new TablaSustsDesplz( MARCAGRF, numLocs, v )));
 
@@ -2446,9 +2451,9 @@ std::string FichRecursos::buscaFicheroEnRutas(const std::string &nomFich)
 /*
 	Busca el fichero en el directorio actual, devolviendo
 	directamente su nombre si lo encuentra.
-	Añade el nombre del fichero a todas las rutas almacenadas,
+	Aï¿½ade el nombre del fichero a todas las rutas almacenadas,
 	hasta encontrarlo. En caso de no encotnrarlo,
-	devuelve la cadena vacía.
+	devuelve la cadena vacï¿½a.
 */
 {
 	FILE *fich   = fopen( nomFich.c_str(), "r" );
@@ -2504,7 +2509,7 @@ void FichRecursos::ponLogStr(const std::string &x)
 void FichRecursos::generaFicheroPorTabla(const std::string &marcaID, MapaSust *tbl)
 /**
 	Llama a buscaFicheroEnRutas() para encontrar la ruta
-	al fichero, almacenándola en rFichero.
+	al fichero, almacenï¿½ndola en rFichero.
 */
 {
     std::string rFichero;
@@ -2519,7 +2524,7 @@ void FichRecursos::generaFicheroPorTabla(const std::string &marcaID, MapaSust *t
         if ( tipo != NULL ) {
             if ( !rFichero.empty() )
             {
-                    ponLogStr( "\nEscribiendo línea para "
+                    ponLogStr( "\nEscribiendo lï¿½nea para "
                             + tbl->getEtqEntradaAct() + '\n')
                     ;
 
@@ -2730,7 +2735,7 @@ ParseDefsRecursos::ParseDefsRecursos(Scanner *sc, size_t nl, bool dbg,
 {
 }
 
-void ParseDefsRecursos::procEntrada(void) throw(Error)
+void ParseDefsRecursos::procEntrada(void)
 {
         // Hacer el proceso de entrada normalmente
         ParseDefs::procEntrada();
@@ -2849,7 +2854,7 @@ std::string procesaOpciones(int argc, char *argv[], size_t &numLocs,
 		    bool &modoVerify,
 		    std::string &fichS, std::string &rutas)
 /*
-	Procesa todas las opciones que hayan sido incluidas en la línea de comando,
+	Procesa todas las opciones que hayan sido incluidas en la lï¿½nea de comando,
 	y devuelve, cuando lo encuentra, el nombre del fichero de entrada
 */
 {
@@ -2923,7 +2928,7 @@ std::string procesaOpciones(int argc, char *argv[], size_t &numLocs,
 			  && arg.compare(0, opNumLoc.length(), opNumLoc) == 0)
 			{
 				// Se puede cambiar el num. de localidades
-				// máximas.
+				// mï¿½ximas.
 				std::istringstream buffer(
 						argv[argAct] + 1
 						+ opNumLoc.length()
@@ -2943,7 +2948,7 @@ std::string procesaOpciones(int argc, char *argv[], size_t &numLocs,
 			if ( arg.length() >= opDebug.length()
 			  && arg.compare(0, opDebug.length(), opDebug) == 0)
 			{
-				// EL modo de depuración hace que se añada
+				// EL modo de depuraciï¿½n hace que se aï¿½ada
 				// info. de num. de lin. de cada TXP
 				// a cada lin. del SCE
 				modoDebug = true;
@@ -3023,8 +3028,8 @@ void cargaFicheroCondactos()
 
 int procesarAventura(int argc, char *argv[])
 {
-        std::auto_ptr<Scanner> sce;
-        std::auto_ptr<Parser>  p;
+        std::unique_ptr<Scanner> sce;
+        std::unique_ptr<Parser>  p;
         int toret            = 0;
         size_t numLocs       = 256;
         bool modoDebug       = false;
@@ -3066,7 +3071,7 @@ int procesarAventura(int argc, char *argv[])
           porPantalla( nombreFichEntrada );
           porPantalla( "\n\n" );
 
-		  // info de depuración
+		  // info de depuraciï¿½n
 		  if ( modoVerbose ) {
 			std::ostringstream linArg;
 
@@ -3189,7 +3194,7 @@ int procesarAventura(int argc, char *argv[])
 
 } // de txtPAWS
 
-// ------------------------------------------- Dependientes de la implementación
+// ------------------------------------------- Dependientes de la implementaciï¿½n
 #ifdef __TEXT__UI
 void muestraProceso(TxtPAWS::Scanner *, TxtPAWS::Parser *) {
 }

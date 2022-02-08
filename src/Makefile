@@ -1,4 +1,6 @@
-CFLAGS = -m32 -O2
+CFLAGS = -O2
+
+.PHONY = clean
 
 txtpaws: txtpaws.o msg.o persistente.o stringman.o
 	$(CXX) $(CFLAGS) txtpaws.o msg.o persistente.o stringman.o -otxtpaws

@@ -82,7 +82,7 @@ public:
     static unsigned int toInt(const std::string &str);
 };
 
-// ---------------------------------------------- La tabla de símbolos
+// ---------------------------------------------- La tabla de sï¿½mbolos
 class MapaSust {
 private:
         size_t limite;
@@ -199,12 +199,12 @@ public:
     { return avisos; }
 };
 
-// Implementación de las plantillas
+// Implementaciï¿½n de las plantillas
 #include "mapans.cc"
 
 /**
-        Esta clase guarda números, como podría hacer la anterior, si bien,
-        añade un desplazamiento a todos los valores insertados en ella.
+        Esta clase guarda nï¿½meros, como podrï¿½a hacer la anterior, si bien,
+        aï¿½ade un desplazamiento a todos los valores insertados en ella.
 */
 class MapaNombreNumDesplz : public Tabla<size_t> {
 private:
@@ -396,7 +396,7 @@ public:
 
         virtual bool cambiaEstado(const std::string &) = 0;
 
-        virtual void procEntrada(void) throw(Error) = 0;
+        virtual void procEntrada(void) = 0;
 
         void ponLogStr(const std::string &);
 
@@ -410,7 +410,7 @@ public:
         ParseIncludes(Scanner *);
 
         bool cambiaEstado(const std::string &);
-        void procEntrada() throw(Error);
+        void procEntrada();
 protected:
         void hazInclude(const std::string &);
 private:
@@ -427,7 +427,7 @@ private:
 
 public:
         typedef std::set<std::string> ListaCondactos;
-        static std::auto_ptr<ListaCondactos> Condactos;
+        static std::unique_ptr<ListaCondactos> Condactos;
         typedef enum { DEF, CTL, VOC, SYSMSG, MSG, OBJMSG,
                        LOC, CON, OBJ, PRO
         } TipoEstado;
@@ -491,7 +491,7 @@ public:
 
         bool cambiaEstado(const std::string &);
 
-        void procEntrada(void) throw(Error);
+        void procEntrada(void);
 
 		size_t getMaxNumLocalidades() const { return numLocalidades; }
 
@@ -515,7 +515,7 @@ public:
             const std::string &nomFichSal = "",
             const std::string &rutas = "");
 
-       void procEntrada(void) throw(Error);
+       void procEntrada(void);
 };
 
 } // de namespace txtPAWS

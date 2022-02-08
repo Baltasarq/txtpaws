@@ -1,6 +1,7 @@
 *.o
 *.obj
 src/txtpaws
+src/.vscode
 txtpaws.depend
 txtpaws.layout
 obj/*

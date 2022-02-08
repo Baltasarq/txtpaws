@@ -1,24 +1,25 @@
 // persistente.cpp
 /*
-        Implementación de persistencia
-		20060913
+        Persistencia 20060913
 
-		Es la de la comunicación con el disco duro ;-)
+		I/O con el disco duro ;-)
 */
+
 
 #include "persistente.h"
 #include "stringman.h"
 
 #include <cstdio>
 
+
 // ================================================================= AtributoXML
-std::auto_ptr<AtributoXML> AtributoXML::leerAtributo(std::FILE *f)
+std::unique_ptr<AtributoXML> AtributoXML::leerAtributo(std::FILE *f)
 {
 	long int pos = ftell( f );
 	int ch;
 	std::string etq;
 	std::string val;
-	std::auto_ptr<AtributoXML> toret( NULL );
+	std::unique_ptr<AtributoXML> toret;
 
 	// Leer la etiqueta
 	Persistente::pasaEsp( f );
@@ -61,7 +62,7 @@ ListaAtributosXML Persistente::lAtribs;
 
 bool ListaAtributosXML::leerAtributos(std::FILE *f)
 {
-	std::auto_ptr<AtributoXML> atr( AtributoXML::leerAtributo( f ) );
+	std::unique_ptr<AtributoXML> atr( AtributoXML::leerAtributo( f ) );
 
 	reset();
 	while ( atr.get() != NULL ) {
@@ -199,7 +200,7 @@ void Persistente::escribeCierreMarca(std::FILE *f, const std::string &nombre)
 std::string Persistente::leeAperturaMarca(std::FILE *f)
 /**
         Lee una marca de apertura y devuelve la etiqueta de esa marca, o una
-        cadena vacía si no existe tal marca
+        cadena vacï¿½a si no existe tal marca
 */
 {
         std::string toret;
@@ -241,7 +242,7 @@ std::string Persistente::leeAperturaMarca(std::FILE *f)
 std::string Persistente::getSigMarca(std::FILE *f)
 /**
         Lee una marca de apertura y devuelve la etiqueta de esa marca, o una
-        cadena vacía si no existe tal marca.
+        cadena vacï¿½a si no existe tal marca.
 		El puntero vuelve a donde estaba (si se desea avanzar, hay que releer).
 */
 {
@@ -268,7 +269,7 @@ std::string Persistente::getSigMarca(std::FILE *f)
 				toret = getToken( f );
         }
 
-        // Volver a donde estábamos
+        // Volver a donde estï¿½bamos
         fseek(f, pos, SEEK_SET);
 
         return StringMan::trim( toret );
@@ -307,7 +308,7 @@ bool Persistente::leeCierreMarca(std::FILE *f, const std::string &nombre)
 				{
 					nom = getToken( f );
 
-					// ¿Es la que esperábamos?
+					// ï¿½Es la que esperï¿½bamos?
 					StringMan::maysCnvt( StringMan::trimCnvt( nom ) );
 					if ( nom == maysNombre )
 					{

@@ -1,6 +1,6 @@
 // persistente.cpp
 /*
-        Implementación de persistencia
+        Implementaciï¿½n de persistencia
 		20060913
 */
 
@@ -33,7 +33,7 @@ public:
 		void guardaAtributo(FILE * f)
 				{ std::fprintf( f, "%s", toString().c_str() ); }
 
-		static std::auto_ptr<AtributoXML> leerAtributo(FILE *);
+		static std::unique_ptr<AtributoXML> leerAtributo(FILE *);
 };
 
 class ListaAtributosXML {
@@ -95,7 +95,7 @@ class Persistente {
         static  std::string getToken(FILE *);
 		static  std::string leeLiteral(FILE *, char = '"');
 
-		// Operaciones mínimas sobre XML
+		// Operaciones mï¿½nimas sobre XML
         static  void escribirCabecera(FILE *);
         static  bool leerCabecera(FILE *);
         static  std::string leeAperturaMarca(FILE *);
@@ -108,7 +108,7 @@ class Persistente {
         static  void guardarCampo(FILE *, const std::string &nombre, const std::string &info);
         static  std::string recuperarCampo(FILE *, const std::string &nombre);
 
-        // Operaciones que deberán ser reescritas por cada clase derivada
+        // Operaciones que deberï¿½n ser reescritas por cada clase derivada
         virtual Persistente * recuperar(FILE *)         = 0;
         virtual void guardar(FILE *)                    = 0;
 };
